@@ -18,7 +18,7 @@ function SideNav() {
       id: 2,
       name: "Budget",
       icon: <PiggyBank />,
-      path: "/dashboard/budget",
+      path: "/dashboard/budgets",
     },
     {
       id: 3,
