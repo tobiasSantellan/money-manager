@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -12,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { db } from "@/utils/dbConfig";
 import { Budgets } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
+
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -23,6 +26,18 @@ function CreateBudget() {
   const [amount, setAmount] = useState();
   const { user } = useUser();
 
+  /**
+   * Creates a new budget in the database.
+   *
+   * This function takes the following information:
+   * - name: The name of the new budget.
+   * - amount: The total amount allocated for the budget.
+   * - createdBy: The email address of the user creating the budget (obtained from user object).
+   * - icon: The emoji icon chosen for the budget (optional).
+   *
+   * It interacts with the database using Drizzle ORM to insert a new record into the "Budgets" table.
+   * If successful, it displays a toast notification and potentially performs other actions.
+   **/
   const onCreateBudget = async () => {
     const result = await db
       .insert(Budgets)
@@ -88,17 +103,20 @@ function CreateBudget() {
                     onChange={(e) => setAmount(e.target.value)}
                   />
                 </div>
-
-                <Button
-                  disabled={!(name && amount)}
-                  onClick={() => onCreateBudget()}
-                  className="mt-5 w-full"
-                >
-                  Create Budget
-                </Button>
               </div>
             </DialogDescription>
           </DialogHeader>
+          <DialogFooter className="sm:justify-start">
+            <DialogClose asChild>
+              <Button
+                disabled={!(name && amount)}
+                onClick={() => onCreateBudget()}
+                className="mt-5 w-full"
+              >
+                Create Budget
+              </Button>
+            </DialogClose>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
