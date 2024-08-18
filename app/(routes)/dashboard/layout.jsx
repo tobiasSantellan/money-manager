@@ -17,6 +17,11 @@ function DashboardLayout({ children }) {
     user && checkUserBudgets();
   }, [user]);
 
+  /*
+   * Checks if the current user has any existing budgets.
+   * Fetches budget data from the database based on the user's email address.
+   * If no budgets are found, redirects the user to the budget creation page.
+   */
   const checkUserBudgets = async () => {
     const result = await db
       .select()
