@@ -28,8 +28,8 @@ function Hero() {
         </div>
       </div>
       <Image
-        src={"/dashboard.png"}
-        alt="dashboard"
+        src={"/hero.png"}
+        alt="hero"
         width={1000}
         height={700}
         className="-mt-40 border-2 rounded-xl pb-8 "
